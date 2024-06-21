@@ -3,8 +3,8 @@ env:
     CONFIG: config.sh
 
     # Telegram
-    TG_CHAT_ID: -1001595569305
-    TG_TOKEN: ENCRYPTED[525a4d7e4426bdaad7b33b8a958d7baaba34378fa92a7e15408031fa8612387af7eb911ce3466cb4e57b8644e69ef7bf]
+    TG_CHAT_ID: 
+    TG_TOKEN: 
 
     # Cirrus Specific Vars (Do *NOT* Change)
     CIRRUS_SHELL: bash
@@ -19,14 +19,14 @@ task:
       memory: 32G
 
   Checks_script:
-      - curl -sL https://raw.githubusercontent.com/snnbyyds/AOSP-CI/main/scripts/checks.sh | bash
+      - curl -sL https://raw.githubusercontent.com/lirkyo/AOSP-CI/main/scripts/checks.sh | bash
 
   Sync_script:
-      - curl -sL https://raw.githubusercontent.com/snnbyyds/AOSP-CI/main/scripts/sync.sh | bash
+      - curl -sL https://raw.githubusercontent.com/lirkyo/AOSP-CI/main/scripts/sync.sh | bash
 
   Build_script:
-      - curl -sL https://raw.githubusercontent.com/snnbyyds/AOSP-CI/main/scripts/build.sh | bash
+      - curl -sL https://raw.githubusercontent.com/lirkyo/AOSP-CI/main/scripts/build.sh | bash
 
   Upload_script:
       - export TIMEOUT=43200 # Link timeout (in minutes)
-      - curl -sL https://raw.githubusercontent.com/snnbyyds/AOSP-CI/main/scripts/upload.sh | bash
+      - curl -sL https://raw.githubusercontent.com/lirkyo/AOSP-CI/main/scripts/upload.sh | bash
