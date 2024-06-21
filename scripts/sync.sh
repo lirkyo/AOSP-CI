@@ -4,8 +4,6 @@ mkdir ~/bin
 PATH=~/bin:$PATH
 
 cd ~
-wget https://github.com/snnbyyds/system_sepolicy/commit/fb5f19e95aca26485afba5a4082a41468e193098.patch
-cat fb5f19e95aca26485afba5a4082a41468e193098.patch
 
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
@@ -15,44 +13,32 @@ rm -rf ~/android
 mkdir ~/android
 cd ~/android
 
-# A Function to Send Posts to Telegram
-telegram_message() {
-	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-	-d chat_id="${TG_CHAT_ID}" \
-	-d parse_mode="HTML" \
-	-d text="$1"
-}
-
 # Clone the Sync Repo
 cd ~/android
-repo init -u https://github.com/Evolution-X/manifest -b tiramisu
-
+repo init --depth=1 -u https://github.com/ProjectSakura/android.git -b 14 --git-lfs
 
 # Sync the Sources
 cd ~/android
 echo '[DEBUG]repo sync -j6'
 repo sync -j6
 
-cd ~/android && pwd
-cd system/sepolicy
-git apply ~/fb5f19e95aca26485afba5a4082a41468e193098.patch
-cd ~/android
-
 # Clone Device Specific
-rm -rf device/oneplus/fajita
-git clone -b tiramisu https://github.com/snnbyyds/evolution_device_oneplus_fajita.git device/oneplus/fajita
-ls device/oneplus/fajita
-rm -rf device/oneplus/sdm845-common
-git clone -b lineage-19.1 https://github.com/snnbyyds/android_device_oneplus_sdm845-common.git device/oneplus/sdm845-common
-ls device/oneplus/sdm845-common
+git clone --depth=1 -b lineage-21 https://github.com/whatawurst/android_device_sony_maple_dsds.git device/sony/maple_dsds
+git clone --depth=1 -b lineage-21 https://github.com/whatawurst/android_device_sony_yoshino-common.git device/sony/yoshino-common
+
+# Clone Vendor Specific
+git clone --depth=1 -b lineage-21 https://github.com/whatawurst/android_vendor_sony_maple_dsds.git vendor/sony/maple_dsds
+git clone --depth=1 -b lineage-21 https://github.com/whatawurst/android_vendor_sony_yoshino-common.git vendor/sony/yoshino-common
 
 # Clone the Kernel Sources
-#git clone --depth=1 -b snow https://github.com/snnbyyds/kernel_oneplus_sdm845.git kernel/oneplus/sdm845
-git clone --depth=1 -b lineage-20.0 https://github.com/snnbyyds/android_kernel_oneplus_sdm845.git kernel/oneplus/sdm845
+git clone --depth=1 -b lineage-21 https://github.com/whatawurst/android_kernel_sony_msm8998.git kernel/sony/msm8998
 
 cd ~/android
 # Additional
-git clone -b lineage-20 https://github.com/snnbyyds/android_hardware_oneplus.git hardware/oneplus
-git clone --depth=1 https://github.com/snnbyyds/prebuilts_clang_host_linux-x86_clang-r383902.git prebuilts/clang/host/linux-x86/clang-r383902
+git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 gcc64
+git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 gcc32
+mkdir clang && cd clang
+wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android12-release/clang-r416183b1.tar.gz
+tar -xzf clang-r416183b1.tar.gz
 
 exit 0
