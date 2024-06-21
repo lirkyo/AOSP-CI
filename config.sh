@@ -2,11 +2,11 @@
 
 export PATH=/tmp:$PATH
 #
-export REPO=https://github.com/Evolution-X/manifest
-export DEVICE=fajita
+export REPO=https://github.com/ProjectSakura/android.git
+export DEVICE=maple_dsds
 export TYPE=userdebug
-export AOSP=evolution
-export BRANCH=tiramisu
+export AOSP=Project Sakura
+export BRANCH=14
 export FALLBACK=snow
 
 export USE_CCACHE=1
