@@ -2,26 +2,17 @@
 
 # Source Vars
 # source $CONFIG
-export REPO=https://github.com/Evolution-X/manifest
-export DEVICE=fajita
+export REPO=https://github.com/ProjectSakura/android
+export DEVICE=maple_dsds
 export TYPE=userdebug
-export AOSP=evolution
-export BRANCH=tiramisu
-export FALLBACK=snow
+export AOSP=lineage
+export BRANCH=14
 
 export USE_CCACHE=1
 export CCACHE_SIZE=50G
 #export ALLOW_MISSING_DEPENDENCIES=true
 # export LC_ALL="C"
 ##########################
-
-# A Function to Send Posts to Telegram
-telegram_message() {
-	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-	-d chat_id="${TG_CHAT_ID}" \
-	-d parse_mode="HTML" \
-	-d text="$1"
-}
 
 # Change to the Source Directory
 cd ~/android
@@ -37,7 +28,7 @@ echo "============================"
 cd out/target/product/${DEVICE}
 
 # Set FILENAME var
-ls evolution_fajita*.zip > FILENAME.txt
+ls lineage_maple_dsds*.zip > FILENAME.txt
 FILENAME=$(cat FILENAME.txt)
 cat FILENAME.txt
 # Upload to oshi.at
@@ -63,23 +54,6 @@ echo "=============================================="
 
 DATE_L=$(date +%d\ %B\ %Y)
 DATE_S=$(date +"%T")
-
-# Send the Message on Telegram
-echo -e \
-"
-🛠️ CI|  OrangeFox Recovery
-
-Build Completed Successfully!
-
-Device: "${DEVICE}"
-
-" > tg.html
-
-TG_TEXT=$(< tg.html)
-
-telegram_message "$TG_TEXT"
-
-echo " "
 
 # Exit
 exit 0
