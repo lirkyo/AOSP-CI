@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH=/tmp:$PATH
-#
+
 export REPO=https://github.com/ProjectSakura/android.git
 export DEVICE=maple_dsds
 export TYPE=userdebug
